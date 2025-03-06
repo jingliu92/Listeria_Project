@@ -37,7 +37,8 @@ wc -l results.tsv
 
 # Use cutoff thresholds to retain high-confidence virulence genes (e.g., identity > 90%, coverage > 90%).
 
-cat results.tsv | awk -F"\t" '$10 > 90 && $11 > 90' > filtered_results.tsv
+head -n 1 results.tsv > filtered_results.tsv && awk -F"\t" '$10 > 90 && $11 > 90' results.tsv >> filtered_results.tsv
+
 wc -l filtered_results.tsv
 
 # Summarize results
