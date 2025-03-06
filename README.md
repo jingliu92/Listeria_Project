@@ -15,6 +15,7 @@ unzip ncbi_dataset.zip
 # Define the destination folder
 DEST_DIR="assembly"
 # Loop through each folder and copy its contents
+
 for folder in GCA_*; do
     if [ -d "$folder" ]; then
         cp "$folder"/* "$DEST_DIR"/
@@ -22,6 +23,7 @@ for folder in GCA_*; do
 done
 
 # Change file name
+
 for file in GCA_*.fna; do 
     mv "$file" "$(echo "$file" | cut -d'_' -f1-2).fna"
 done
@@ -34,8 +36,11 @@ abricate --db vfdb *.fna > results.tsv
 wc -l results.tsv
 
 # Use cutoff thresholds to retain high-confidence virulence genes (e.g., identity > 90%, coverage > 90%).
+
 cat results.tsv | awk -F"\t" '$10 > 90 && $11 > 90' > filtered_results.tsv
 wc -l filtered_results.tsv
+
 # Summarize results
+
 abricate --summary filtered_results.tsv > summary.tsv
 ```
