@@ -12,4 +12,18 @@ Make them executable: chmod +x datasets dataformat
 unzip ncbi_dataset.zip
 ```
 
+3. Parse files
+```
+#!/bin/bash
 
+# Define the destination folder
+DEST_DIR="assembly"
+# Loop through each folder and copy its contents
+for folder in GCA_*; do
+    if [ -d "$folder" ]; then
+        cp "$folder"/* "$DEST_DIR"/
+    fi
+done
+
+echo "Files have been copied to $DEST_DIR."
+```
