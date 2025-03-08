@@ -45,3 +45,12 @@ wc -l filtered_results.tsv
 
 abricate --summary filtered_results.tsv > summary.tsv
 ```
+
+4. Prodigal Gene Functional Analysis
+```
+for genome in ./*.fna; do     sample_name=$(basename $genome.fna);
+prokka --outdir ./prokka_anno/$sample_name --prefix $sample_name --kingdom Bacteria --genus Listeria --species monocytogenes --cpus 8 $genome; done
+```
+
+
+   
