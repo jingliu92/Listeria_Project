@@ -51,6 +51,26 @@ abricate --summary filtered_results.tsv > summary.tsv
 for genome in ./*.fna; do     sample_name=$(basename $genome.fna);
 prokka --outdir ./prokka_anno/$sample_name --prefix $sample_name --kingdom Bacteria --genus Listeria --species monocytogenes --cpus 8 $genome; done
 ```
+5. Pangenome Analysis with Roary
+```
+for folder in GCA_*; do
+    if [ -d "$folder" ]; then  # Check if it is a directory
+        gff_file=$(find "$folder" -type f -name "*.gff")  # Find the .gff file in the folder
+        if [ -n "$gff_file" ]; then  # Check if a .gff file exists
+            cp "$gff_file" all_gff_files/  # Copy .gff file to new folder
+            echo "Copied: $gff_file"
+        fi
+    fi
+done
+
+for file in GCA_*.fna.fna.gff; do
+    new_name=$(echo "$file" | sed 's/.fna.fna//')  # Remove the extra .fna.fna
+    mv "$file" "$new_name"
+    echo "Renamed: $file -> $new_name"
+done
 
 
+# Run Roary
+roary -e -n -p 8 -v -f ./pangenome_output *.gff
+```
    
