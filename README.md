@@ -70,6 +70,8 @@ for file in GCA_*.fna.fna.gff; do
 done
 
 
+
+
 # Run Roary
 roary -e -n -p 8 -v -f ./pangenome_output *.gff
 ```
