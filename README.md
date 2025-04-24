@@ -1,12 +1,13 @@
 # Listeria_Project
 1. Download Listeria monocytogenes genomic assemblies from NCBI using NCBI `datasets` tool
 Install using curl
-Linux
+```
 Download datasets: curl -o datasets 'https://ftp.ncbi.nlm.nih.gov/pub/datasets/command-line/v2/linux-amd64/datasets'
 Download dataformat: curl -o dataformat 'https://ftp.ncbi.nlm.nih.gov/pub/datasets/command-line/v2/linux-amd64/dataformat'
 Make them executable: chmod +x datasets dataformat
+```
 
-2. Download Assembly from NCBI and Data Preparation
+3. Download Assembly from NCBI and Data Preparation
 
 ```
 ./datasets  download genome accession --inputfile assm_accs.txt --include genome,cds,gff3
@@ -28,6 +29,14 @@ for file in GCA_*.fna; do
     mv "$file" "$(echo "$file" | cut -d'_' -f1-2).fna"
 done
 
+```
+
+# Add GCA to each sequence
+```
+for f in *.fna; do
+    sample_id="${f%%.fna}"
+    sed -i "s/^>/>${sample_id}_/" "$f"
+done
 ```
 
 3. Abricate-Virulence Gene Identifiaction
@@ -69,10 +78,20 @@ for file in GCA_*.fna.fna.gff; do
     echo "Renamed: $file -> $new_name"
 done
 
-
-
-
 # Run Roary
 roary -e -n -p 8 -v -f ./pangenome_output *.gff
+
+
+1. sequence of lmo2821
+2. cat all the fna file in to one single file
+
+cat *.fna > all_combined.fasta
+
+makeblastdb -in all_combined.fasta -dbtype nucl -out listeria_all_db
+
+blastn -query lmo2821.fasta -db listeria_all_db -out lmo2821_clinical1.tsv \
+-outfmt "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore"
+
+
 ```
    
