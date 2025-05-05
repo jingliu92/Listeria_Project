@@ -91,6 +91,7 @@ makeblastdb -in all_combined.fasta -dbtype nucl -out listeria_all_db
 
 blastn -query lmo2821.fasta -db listeria_all_db -out lmo2821_clinical1.tsv \
 -outfmt '6 qseqid sseqid pident length qlen slen qstart qend sstart send evalue bitscore'
+```
 
 # quast
 ```
