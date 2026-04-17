@@ -2,9 +2,9 @@
 1. Download Listeria monocytogenes genomic assemblies from NCBI using NCBI `datasets` tool
 Install using curl
 ```
-Download datasets: curl -o datasets 'https://ftp.ncbi.nlm.nih.gov/pub/datasets/command-line/v2/linux-amd64/datasets'
-Download dataformat: curl -o dataformat 'https://ftp.ncbi.nlm.nih.gov/pub/datasets/command-line/v2/linux-amd64/dataformat'
-Make them executable: chmod +x datasets dataformat
+curl -o datasets 'https://ftp.ncbi.nlm.nih.gov/pub/datasets/command-line/v2/linux-amd64/datasets'
+curl -o dataformat 'https://ftp.ncbi.nlm.nih.gov/pub/datasets/command-line/v2/linux-amd64/dataformat'
+chmod +x datasets dataformat
 ```
 
 3. Download Assembly from NCBI and Data Preparation
