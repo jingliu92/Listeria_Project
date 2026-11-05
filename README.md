@@ -1,4 +1,5 @@
 # Listeria_Project
+
 1. Download Listeria monocytogenes genomic assemblies from NCBI using NCBI `datasets` tool
 Install using curl
 ```
